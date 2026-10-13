@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "hits.fire.mix",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "BlockMix",
+    "FireMix",
+    "FlameMix",
+    "FrostMix",
+    "LevelMix",
+    "ScreenMix"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

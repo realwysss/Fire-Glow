@@ -1,0 +1,121 @@
+def remap = plugins.hasPlugin('net.fabricmc.fabric-loom-remap')
+def javaVersion = (project.java_version as String).toInteger()
+
+version = "${rootProject.mod_version}+${project.name}"
+group = rootProject.group
+base.archivesName = 'fireglow'
+
+repositories {
+    maven { url = 'https://maven.terraformersmc.com/releases/' }
+}
+
+fabricApi {
+    configureTests {
+        createSourceSet = true
+        modId = 'fireglow-test'
+        enableGameTests = false
+        enableClientGameTests = true
+        eula = true
+    }
+}
+
+def own = rootProject.file("versions/${project.findProperty('share') ?: project.name}")
+
+sourceSets {
+    main {
+        java.srcDirs = [rootProject.file('src/main/java'), new File(own, 'src/main/java')]
+        resources.srcDirs = [rootProject.file('src/main/resources'), new File(own, 'src/main/resources')]
+    }
+    test {
+        java.srcDirs = [rootProject.file('src/test/java')]
+    }
+    gametest {
+        java.srcDirs = [rootProject.file('src/gametest/java'), new File(own, 'src/gametest/java')]
+        resources.srcDirs = [rootProject.file('src/gametest/resources')]
+    }
+}
+
+def ship = (project.findProperty('ship') ?: 'true').toBoolean()
+def dist = tasks.register('dist', Copy) {
+    from(remap ? tasks.named('remapJar') : tasks.named('jar'))
+    into rootProject.layout.buildDirectory.dir('libs')
+}
+tasks.named('build') {
+    if (ship) finalizedBy dist
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    if (remap) {
+        mappings loom.officialMojangMappings()
+        modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
+        modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+        modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+    } else {
+        implementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
+        implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+        implementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+    }
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+loom {
+    runs {
+        configureEach {
+            ideConfigGenerated = false
+        }
+    }
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(javaVersion)
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = javaVersion
+    options.encoding = 'UTF-8'
+}
+
+processResources {
+    def props = [version: project.version, mc: project.mc_range, java: javaVersion]
+    inputs.properties props
+    filesMatching('fabric.mod.json') {
+        expand props
+    }
+}
+
+if (project.findProperty('shaders') == 'modern') {
+    processResources {
+        filesMatching('assets/fireglow/shaders/**') { file ->
+            def slots = [in: 0, out: 0]
+            def include = file.path.contains('/include/')
+            file.filter { String line ->
+                if (line.startsWith('#version')) return include ? '' : line + '\n#extension GL_ARB_separate_shader_objects : require'
+                if (line.startsWith('#moj_import')) return line.replace('#moj_import', '#include')
+                def m = line =~ /^(in|out) (.+;)$/
+                if (m.matches()) {
+                    def kind = m.group(1)
+                    return "layout(location = ${slots[kind]++}) ${line}"
+                }
+                return line.replace('gl_VertexID', 'gl_VertexIndex')
+            }
+        }
+    }
+}
+
+processGametestResources {
+    def props = [version: project.version]
+    inputs.properties props
+    filesMatching('fabric.mod.json') {
+        expand props
+    }
+}
+
+jar {
+    from(rootProject.file('LICENSE'))
+}
+
+test {
+    useJUnitPlatform()
+}

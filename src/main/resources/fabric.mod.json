@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "fireglow",
+  "version": "${version}",
+  "name": "Fire Glow",
+  "description": "makes fire glow w real shaders, fire, soul fire, campfires n burning mobs, change colors n effects in the menu or just hit J",
+  "authors": ["HitsOnly", "Wayyys"],
+  "license": "MIT",
+  "icon": "assets/fireglow/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["hits.fire.Glow"],
+    "modmenu": ["hits.fire.ModMenuHook"]
+  },
+  "mixins": ["fireglow.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.17",
+    "fabric-api": "*",
+    "minecraft": "${mc}",
+    "java": ">=${java}"
+  },
+  "recommends": {
+    "modmenu": "*"
+  }
+}

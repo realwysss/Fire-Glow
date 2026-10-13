@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id": "fireglow-test",
+  "version": "${version}",
+  "name": "Fire Glow Tests",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-client-gametest": ["hits.fire.test.GlowTest"]
+  },
+  "depends": {
+    "fireglow": "*"
+  }
+}

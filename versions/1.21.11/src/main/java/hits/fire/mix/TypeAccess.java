@@ -1,0 +1,12 @@
+package hits.fire.mix;
+
+import net.minecraft.client.renderer.rendertype.RenderSetup;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
+
+@Mixin(RenderType.class)
+public interface TypeAccess {
+    @Accessor("state")
+    RenderSetup fg$state();
+}
