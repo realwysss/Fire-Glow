@@ -1,3 +1,5 @@
+<p align="center"><img src="src/main/resources/assets/fireglow/icon.png" width="128"></p>
+
 # Fire Glow
 
 Makes fire glow using shaders. Fire blocks, soul fire, lit campfires, burning mobs and optionally torches, lanterns and the fire on your screen. Fire and soul fire each get their own color, radius, strength and falloff, and the flames themselves get repainted in that color too, rainbow included (turn off Recolor flames in Effects for vanilla colored fire). Theres also pulse, flicker and shimmer, additive or screen blend. The glow stays behind whatever you hold unless you turn on Glow over hand in Show.
