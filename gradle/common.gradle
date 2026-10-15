@@ -9,29 +9,12 @@ repositories {
     maven { url = 'https://maven.terraformersmc.com/releases/' }
 }
 
-fabricApi {
-    configureTests {
-        createSourceSet = true
-        modId = 'fireglow-test'
-        enableGameTests = false
-        enableClientGameTests = true
-        eula = true
-    }
-}
-
 def own = rootProject.file("versions/${project.findProperty('share') ?: project.name}")
 
 sourceSets {
     main {
         java.srcDirs = [rootProject.file('src/main/java'), new File(own, 'src/main/java')]
         resources.srcDirs = [rootProject.file('src/main/resources'), new File(own, 'src/main/resources')]
-    }
-    test {
-        java.srcDirs = [rootProject.file('src/test/java')]
-    }
-    gametest {
-        java.srcDirs = [rootProject.file('src/gametest/java'), new File(own, 'src/gametest/java')]
-        resources.srcDirs = [rootProject.file('src/gametest/resources')]
     }
 }
 
@@ -56,8 +39,6 @@ dependencies {
         implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
         implementation "com.terraformersmc:modmenu:${project.modmenu_version}"
     }
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 loom {
@@ -104,18 +85,6 @@ if (project.findProperty('shaders') == 'modern') {
     }
 }
 
-processGametestResources {
-    def props = [version: project.version]
-    inputs.properties props
-    filesMatching('fabric.mod.json') {
-        expand props
-    }
-}
-
 jar {
     from(rootProject.file('LICENSE'))
-}
-
-test {
-    useJUnitPlatform()
 }

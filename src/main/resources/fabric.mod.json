@@ -5,7 +5,7 @@
   "name": "Fire Glow",
   "description": "makes fire glow w real shaders, fire, soul fire, campfires n burning mobs, change colors n effects in the menu or just hit J",
   "authors": ["HitsOnly", "Wayyys"],
-  "license": "MIT",
+  "license": "All-Rights-Reserved",
   "icon": "assets/fireglow/icon.png",
   "environment": "client",
   "entrypoints": {

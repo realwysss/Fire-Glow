@@ -3,20 +3,3 @@ plugins {
 }
 
 apply from: rootProject.file('gradle/common.gradle')
-
-loom {
-    runs {
-        clientGameTestVulkan {
-            inherit clientGameTest
-            programArgs '--graphicsBackend', 'vulkan'
-            vmArg '-Dglowtest.fixed=true'
-            runDir 'build/run/clientGameTestVulkan'
-        }
-        clientGameTestVulkanIdle {
-            inherit clientGameTest
-            programArgs '--graphicsBackend', 'vulkan'
-            vmArg '-Dglowtest.idle=true'
-            runDir 'build/run/clientGameTestVulkanIdle'
-        }
-    }
-}

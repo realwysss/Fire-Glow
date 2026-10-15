@@ -31,19 +31,6 @@ Jars go to `build/libs`:
 
 Gradle needs Java 25. 1.21.11 builds on Java 21 through toolchains.
 
-## Tests
-
-```
-gradlew test
-gradlew :1.21.11:runClientGameTest
-gradlew :26.1:runClientGameTest
-gradlew :26.2:runClientGameTest
-gradlew :26.2:runClientGameTestVulkan
-gradlew :1.21.11:runProductionClientGameTest
-```
-
-Unit tests cover colors, config, animation, the fire tracker and the whole settings screen through a fake canvas. The game tests boot a real client, click through the settings, build a netherrack stage, light fire and soul fire, wall it off, place a campfire, torches and lanterns, set a husk on fire, set you on fire, then compare screenshots with the glow on and off. Screenshots end up in `versions/<mc>/build/run/clientGameTest/screenshots`.
-
 ## Porting
 
 Nothing outside `versions/` touches Minecraft's render code, it all goes through `hits.fire.Gpu`. A version folder only has:
@@ -52,4 +39,6 @@ Nothing outside `versions/` touches Minecraft's render code, it all goes through
 - the mixins that feed fire blocks, burning mobs and screen fire into the mask
 - `fireglow.mixins.json`, `gradle.properties`, `build.gradle`
 
-New version: copy the closest `versions/<mc>` folder, bump the versions in its `gradle.properties`, fix whatever breaks, run the game test.
+New version: copy the closest `versions/<mc>` folder, bump the versions in its `gradle.properties`, fix whatever breaks.
+
+all rights reserved. made by wysss.
