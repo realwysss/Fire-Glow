@@ -25,9 +25,9 @@ Jars go to `build/libs`:
 
 | Jar | Minecraft |
 |---|---|
-| `fireglow-1.0.0+1.21.11.jar` | 1.21.11 |
-| `fireglow-1.0.0+26.1.jar` | 26.1.x |
-| `fireglow-1.0.0+26.2.jar` | 26.2.x |
+| `fireglow-1.0.1+1.21.11.jar` | 1.21.11 |
+| `fireglow-1.0.1+26.1.jar` | 26.1.x |
+| `fireglow-1.0.1+26.2.jar` | 26.2.x |
 
 Gradle needs Java 25. 1.21.11 builds on Java 21 through toolchains.
 

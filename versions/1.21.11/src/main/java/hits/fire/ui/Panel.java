@@ -75,6 +75,10 @@ public final class Panel extends Screen implements Canvas {
 
     @Override
     public boolean keyPressed(KeyEvent e) {
+        if (hits.fire.Keys.matches(e) && !menu.typing()) {
+            onClose();
+            return true;
+        }
         int action = switch (e.key()) {
             case InputConstants.KEY_BACKSPACE -> Menu.BACK;
             case InputConstants.KEY_RETURN, InputConstants.KEY_NUMPADENTER -> Menu.ENTER;

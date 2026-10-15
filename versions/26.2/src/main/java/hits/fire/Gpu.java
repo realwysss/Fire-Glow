@@ -190,6 +190,15 @@ public final class Gpu {
             .build());
     }
 
+    public static void warm() {
+        try {
+            com.mojang.blaze3d.systems.RenderSystem.getDevice().precompilePipeline(maskPipe());
+            com.mojang.blaze3d.systems.RenderSystem.getDevice().precompilePipeline(flatPipe());
+            com.mojang.blaze3d.systems.RenderSystem.getDevice().precompilePipeline(Halo.pipeline().get());
+        } catch (Exception e) {
+        }
+    }
+
     private static RenderPipeline maskPipe() {
         if (mask == null) {
             mask = RenderPipeline.builder()
