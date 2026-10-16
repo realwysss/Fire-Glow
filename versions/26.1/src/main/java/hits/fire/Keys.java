@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import hits.fire.ui.Panel;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.KeyMapping;
 
 public final class Keys {
@@ -26,7 +27,7 @@ public final class Keys {
                 Gpu.warm();
             }
             while (open.consumeClick()) {
-                if (mc.screen == null) mc.setScreen(new Panel(null));
+                if (mc.screen == null && FabricLoader.getInstance().isModLoaded("wysslib")) mc.setScreen(new Panel(null));
             }
         });
     }

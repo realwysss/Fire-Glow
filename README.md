@@ -25,9 +25,9 @@ Jars go to `build/libs`:
 
 | Jar | Minecraft |
 |---|---|
-| `fireglow-1.0.1+1.21.11.jar` | 1.21.11 |
-| `fireglow-1.0.1+26.1.jar` | 26.1.x |
-| `fireglow-1.0.1+26.2.jar` | 26.2.x |
+| `fireglow-1.1.0+1.21.11.jar` | 1.21.11 |
+| `fireglow-1.1.0+26.1.jar` | 26.1.x |
+| `fireglow-1.1.0+26.2.jar` | 26.2.x |
 
 Gradle needs Java 25. 1.21.11 builds on Java 21 through toolchains.
 
@@ -42,3 +42,5 @@ Nothing outside `versions/` touches Minecraft's render code, it all goes through
 New version: copy the closest `versions/<mc>` folder, bump the versions in its `gradle.properties`, fix whatever breaks.
 
 all rights reserved. made by wysss.
+
+the menu needs [Wysss Library](https://github.com/realwysss/Wysss-Library) installed.
